@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ $# -ne 1 ]
+	then
+	echo "Syntax: $0 FILE"
+	echo $0 - display a random line from FILE.
+	exit 1
+fi
+
+RAND=`od -d -N2 -An /dev/urandom`
+LINES=`cat "$1" | wc -l`
+LINE=$(( RAND % LINES + 1 ))
+
+head -$LINE $1 | tail -1
